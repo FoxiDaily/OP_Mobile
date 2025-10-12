@@ -1,0 +1,221 @@
+{
+	"lazyCodeLoading": "requiredComponents",
+	"pages": [ 
+		{
+		    "path" : "pages/device_list",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%device_list.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/home",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%home.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/network",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%network.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/statistics",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%statistics.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/client",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%client.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%apps.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+
+		{
+		    "path" : "pages/device/apps/reboot/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%reboot.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/factory_reset/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%factory_reset.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+
+		{
+		    "path" : "pages/device/apps/parental_control/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%parental_control.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/parental_control/basic_settings",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%parental_control.basic_settings%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/parental_control/app_filter_rules",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%parental_control.app_filter%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/parental_control/advanced_settings",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%parental_control.advanced_settings%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/parental_control/parental_control_about",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%parental_control_about.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/process/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%process.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/startup/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%startup.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/apps/route/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%route.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/device/client_detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%client_detail.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/help/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%help.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/about/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%about.title%",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/language/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%language.title%",
+		        "enablePullDownRefresh": false
+		    }
+		}
+
+    ],
+	"tabBar":{
+		"color":"#000000",
+		"selectedColor":"#007AFF",
+		"list":[
+				{
+					"iconPath":"static/home.png",
+					"selectedIconPath":"static/home-selected.png",
+					"text":"home",
+					"pagePath":"pages/device/home"
+				},
+				{
+					"iconPath":"static/align-bottom.png",
+					"selectedIconPath":"static/align-bottom-selected.png",
+					"text":"statistics",
+					"pagePath":"pages/device/statistics"
+				},
+				{
+					"iconPath":"static/user.png",
+					"selectedIconPath":"static/user-selected.png",
+					"text":"client",
+					"pagePath":"pages/device/client"
+				},
+				{
+					"iconPath":"static/network.png",
+					"selectedIconPath":"static/network-selected.png",
+					"text":"network",
+					"pagePath":"pages/device/network"
+				},
+				{
+					"iconPath":"static/system.png",
+					"selectedIconPath":"static/system-selected.png",
+					"text":"apps",
+					"pagePath":"pages/device/apps"
+				}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "OpenWrt Tool",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"condition" : {
+		"current": 0,
+		"list": [
+			{
+				"name": "",
+				"path": "",
+				"query": ""
+			}
+		]
+	}
+}
