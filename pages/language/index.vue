@@ -1,35 +1,47 @@
 <template>
-  <view class="container">
-    <view class="settings-card">
- 
- 
-      <view class="settings-content">
-        <view class="settings-section">
-          <view class="section-header">
-            <text class="section-title">{{ $t('device_list.language_settings') }}</text>
-          </view>
-          
-          <view class="language-options">
-            <view 
-              :class="['language-option', currentLanguage === 'zh-Hans' ? 'active' : '']"
-              @click="switchLanguage('zh-Hans')"
-            >
-              <text class="language-text">中文</text>
-              <view v-if="currentLanguage === 'zh-Hans'" class="check-icon">✓</view>
-            </view>
-            
-            <view 
-              :class="['language-option', currentLanguage === 'en' ? 'active' : '']"
-              @click="switchLanguage('en')"
-            >
-              <text class="language-text">English</text>
-              <view v-if="currentLanguage === 'en'" class="check-icon">✓</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
+
+	  <!-- 页面内容 -->
+		<view class="container">
+			<view class="header" :style="{ height: statusBarHeight}">
+			</view>
+			<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+				<view class="back-btn" @click="goBack" style="z-index: 2;">
+					<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+				</view>
+				<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+					<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('language.title') }}</text>
+				</view>
+			</view>
+			
+			<view class="settings-card">	 
+				<view class="settings-content">
+					<view class="settings-section">
+						<view class="section-header">
+							<text class="section-title">{{ $t('device_list.language_settings') }}</text>
+						</view>
+			  
+						<view class="language-options">
+							<view 
+							  :class="['language-option', currentLanguage === 'zh-Hans' ? 'active' : '']"
+							  @click="switchLanguage('zh-Hans')"
+							>
+								<text class="language-text">中文</text>
+								<view v-if="currentLanguage === 'zh-Hans'" class="check-icon">✓</view>
+							</view>
+				
+							<view 
+							  :class="['language-option', currentLanguage === 'en' ? 'active' : '']"
+							  @click="switchLanguage('en')"
+							  >
+								<text class="language-text">English</text>
+								<view v-if="currentLanguage === 'en'" class="check-icon">✓</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -38,11 +50,13 @@ import I18nUtils from '@/utils/i18n.js'
 export default {
   data() {
     return {
-      currentLanguage: 'zh-Hans'
+      currentLanguage: 'zh-Hans',
+	  statusBarHeight: 0
     }
   },
   
   onLoad() {
+	  this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
     uni.setNavigationBarTitle({
       title: this.$t('device_list.language_settings')
     })
@@ -50,6 +64,11 @@ export default {
   },
   
   methods: {
+	  goBack() {
+	  	uni.navigateBack({
+	  		delta: 1
+	  	});
+	  },
     switchLanguage(locale) {
       if (locale === this.currentLanguage) return
       
@@ -83,7 +102,7 @@ export default {
 
 .settings-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   padding: 60rpx 40rpx;
   margin-top: 50rpx;
   text-align: center;
@@ -139,8 +158,8 @@ export default {
 }
 
 .language-option.active {
-  background: #007aff;
-  border-color: #007aff;
+  background: #6572CC;
+  border-color:#6572CC;
   color: white;
 }
 

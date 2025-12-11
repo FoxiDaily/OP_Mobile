@@ -1,6 +1,15 @@
 <template>
 	<view class="container">
-	
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('reboot.title') }}</text>
+			</view>
+		</view>
 		<view v-if="showProgress" class="progress-overlay">
 			<view class="progress-content">
 				<view class="progress-spinner"></view>
@@ -31,6 +40,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 		data() {
 			return {
+				statusBarHeight: 0,
 				rebooting: false,
 				showProgress: false,
 				countdown: 60,
@@ -42,6 +52,7 @@ export default {
 			}
 		},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		uni.setNavigationBarTitle({
 			title: this.$t('reboot.title')
 		})
@@ -57,7 +68,12 @@ export default {
 		this.clearCountdown()
 	},
 	methods: {
-
+		goBack() {
+			uni.navigateBack({
+				delta: 1
+			});
+		  //uni.reLaunch({ url: '/pages/device/apps' })
+		},
 		confirmReboot() {
 			uni.showModal({
 				title: this.$t('reboot.confirm_restart'),
@@ -207,7 +223,7 @@ export default {
 
 .reboot-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	padding: 60rpx 40rpx;
 	margin-top: 50rpx;
 	text-align: center;
@@ -251,7 +267,7 @@ export default {
 	background: linear-gradient(135deg, #ff3b30 0%, #ff6b6b 100%);
 	color: white;
 	border: none;
-	border-radius: 25rpx;
+	border-radius: 20rpx;
 	font-size: 20rpx;
 	box-shadow: 0 8rpx 24rpx rgba(255, 59, 48, 0.3);
 	transition: all 0.3s ease;

@@ -1,5 +1,15 @@
 <template>
 	<view class="container">
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('startup.title') }}</text>
+			</view>
+		</view>
 		<view v-if="loading" class="loading-overlay">
 			<view class="loading-content">
 				<view class="loading-spinner"></view>
@@ -55,6 +65,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 	data() {
 		return {
+			statusBarHeight: 0,
 			loading: false,
 			startupList: [],
 			error: '',
@@ -64,6 +75,7 @@ export default {
 		}
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		uni.setNavigationBarTitle({
 			title: this.$t('startup.title')
 		})
@@ -76,6 +88,12 @@ export default {
 		this.loadStartupList()
 	},
 	methods: {
+		goBack() {
+			uni.navigateBack({
+				delta: 1
+			});
+		  //uni.reLaunch({ url: '/pages/device/apps' })
+		},
 		loadStartupList() {
 			this.loading = true
 			this.error = ''
@@ -153,7 +171,7 @@ export default {
 
 .loading-content {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 30rpx;
 	padding: 40rpx;
 	display: flex;
 	flex-direction: column;
@@ -164,7 +182,7 @@ export default {
 	width: 60rpx;
 	height: 60rpx;
 	border: 4rpx solid #f3f3f3;
-	border-top: 4rpx solid #007AFF;
+	border-top: 4rpx solid #6572CC;
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 	margin-bottom: 20rpx;
@@ -193,10 +211,10 @@ export default {
 }
 
 .refresh-btn {
-	background: #007AFF;
+	background: #6572CC;
 	color: white;
 	border: none;
-	border-radius: 12rpx;
+	border-radius: 20rpx;
 	padding: 20rpx 40rpx;
 	font-size: 28rpx;
 }
@@ -212,14 +230,14 @@ export default {
 
 .startup-list {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 30rpx;
 	overflow: hidden;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
 }
 
 .table-header {
 	display: flex;
-	background: rgba(0, 122, 255, 0.1);
+	background: #e0e7ff;
 	padding: 20rpx 0;
 	border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
 }
@@ -281,8 +299,8 @@ export default {
 .status-badge {
 	font-size: 24rpx;
 	font-weight: 600;
-	padding: 6rpx 12rpx;
-	border-radius: 8rpx;
+	padding: 10rpx 16rpx;
+	border-radius: 20rpx;
 }
 
 .status-badge.enabled {
@@ -312,7 +330,7 @@ export default {
 	padding: 80rpx 0;
 	margin: 20rpx;
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 30rpx;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
 }
 
@@ -329,7 +347,7 @@ export default {
 	padding: 80rpx 0;
 	margin: 20rpx;
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 30rpx;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
 }
 

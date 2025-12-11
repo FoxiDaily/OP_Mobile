@@ -1,30 +1,44 @@
 <template>
 	<view class="container">
-	
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;top: 20rpx;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('home.title') }}</text>
+			</view>
+			</view>
 		<view v-if="loading" class="loading-overlay">
 			<view class="loading-content">
 				<view class="loading-spinner"></view>
 				<text class="loading-text">{{ $t('home.loading') }}</text>
 			</view>
 		</view>
-
-		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
-			<view class="back-btn" @click="goBack" style="z-index: 2;">
-				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
-			</view>
-			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
-				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">OpenWrt</text>
-			</view>
+		
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">		
 		</view>
 		
-		<view class="device-card">
-			<view class="device-header">
-				<view style="display: flex; align-items: center;">
-					<image class="device-icon" src="/static/openwrt.png" mode="widthFix" style="width: 65rpx; height: 65rpx; margin-right: 5rpx;" />
-					<text class="device-name">{{ truncatedModel }}</text>
-				</view>
-				<text class="device-version">{{ truncatedVersion }}</text>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;height: 60rpx;">		
+			<view style="flex: 1; display: flex; justify-content: left; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 100rpx; font-weight: bold; color: #e0e7ff ;">Hello,</text>
 			</view>
+		</view>
+
+		
+		<view class="deviceinfo-card">
+			<view class="device-header" >
+				<view style="display: flex; align-items: center;">
+					<image class="device-icon" src="/static/openwrt.png" mode="widthFix" style="width: 90rpx; height: 90rpx; margin-right: 30rpx;" />
+					<view>
+						<text class="device-name" style="color: #6572CC;">{{ truncatedModel }}</text>
+						<text class="device-version">{{ truncatedVersion }}</text>
+					</view>
+				</view>			
+			</view>
+		</view>
+		<view class="device-card">
 			<view class="device-details">
 				<view class="detail-row">
 					<text class="detail-label">{{ $t('home.hostname') }}:</text>
@@ -58,63 +72,63 @@
 		</view>
 
 		<view class="status-grid">
-			<view class="status-card cpu-card">
-				<view class="card-header">
-					<text class="card-title">{{ $t('home.cpu_usage') }}</text>
-					<image class="disk-icon" src="/static/cpu.png" mode="widthFix" style="width: 45rpx; height: 45rpx;" />
-				</view>
-				<view class="card-content">
-					<text class="status-value">{{ systemStatus.cpuUsage || '0%' }}</text>
-					<text class="status-detail">
-						<text class="load-label">{{ $t('home.average_load') }}:</text>
-						<text class="load-value">{{ systemStatus.cpuLoad || '0.00 0.00 0.00' }}</text>
-					</text>
-					<view class="progress-bar">
-						<view class="progress-fill" :style="{width: (systemStatus.cpuUsage || '0%')}"></view>
+			<view class="status-card cpu-card">	
+				<view class="cpu-progress-bg" :style="{width: (systemStatus.cpuUsage || '0%')}"></view>
+				<view class="cpu-card-content">
+					<view class="card-header">
+						<text class="card-title">{{ $t('home.cpu_usage') }}</text>
+						<image class="disk-icon" src="/static/cpu.png" mode="widthFix" style="width: 45rpx; height: 45rpx;" />
+					</view>
+					<view class="card-content">
+						<text class="status-value">{{ systemStatus.cpuUsage || '0%' }}</text>
+						<text class="status-detail">
+							<text class="load-label">{{ $t('home.average_load') }}:</text>
+							<text class="load-value">{{ systemStatus.cpuLoad || '0.00 0.00 0.00' }}</text>
+						</text>
 					</view>
 				</view>
 			</view>
 
 			<view class="status-card memory-card">
-				<view class="card-header">
-					<text class="card-title">{{ $t('home.memory_usage') }}</text>
-					<image class="disk-icon" src="/static/mem.png" mode="widthFix" style="width: 45rpx; height: 45rpx;" />
-				</view>
-				<view class="card-content">
-					<text class="status-value">{{ systemStatus.memoryUsage || '0%' }}</text>
-					<text class="status-detail">{{ systemStatus.memoryDetail || '0MB / 0MB' }}</text>
-					<view class="progress-bar">
-						<view class="progress-fill" :style="{width: (systemStatus.memoryUsage || '0%')}"></view>
+				<view class="memory-progress-bg" :style="{width: (systemStatus.memoryUsage || '0%')}"></view>
+				<view class="memory-card-content">
+					<view class="card-header">
+						<text class="card-title">{{ $t('home.memory_usage') }}</text>
+						<image class="disk-icon" src="/static/mem.png" mode="widthFix" style="width: 45rpx; height: 45rpx;" />
+					</view>
+					<view class="card-content">
+						<text class="status-value">{{ systemStatus.memoryUsage || '0%' }}</text>
+						<text class="status-detail">{{ systemStatus.memoryDetail || '0MB / 0MB' }}</text>
 					</view>
 				</view>
 			</view>
 
 			<view class="status-card cache-card">
-				<view class="card-header">
-					<text class="card-title">{{ $t('home.memory_cache') }}</text>
-					<image class="disk-icon" src="/static/line1.png" mode="widthFix" style="width: 50rpx; height: 50rpx;" />
-				</view>
-				<view class="card-content">
-					<text class="status-value">{{ systemStatus.memoryCachePercent || '0%' }}</text>
-					<text class="status-detail">{{ systemStatus.memoryCacheDetail || '0MB / 0MB' }}</text>
-					<view class="progress-bar">
-						<view class="progress-fill" :style="{width: (systemStatus.memoryCachePercent || '0%')}"></view>
+				<view class="cache-progress-bg" :style="{width: (systemStatus.memoryCachePercent || '0%')}"></view>
+				<view class="cache-card-content">
+					<view class="card-header">
+						<text class="card-title">{{ $t('home.memory_cache') }}</text>
+						<image class="disk-icon" src="/static/cache.png" mode="widthFix" style="width: 50rpx; height: 50rpx;" />
+					</view>
+					<view class="card-content">
+						<text class="status-value">{{ systemStatus.memoryCachePercent || '0%' }}</text>
+						<text class="status-detail">{{ systemStatus.memoryCacheDetail || '0MB / 0MB' }}</text>
 					</view>
 				</view>
 			</view>
 
 
 			<view class="status-card connections-card">
-				<view class="card-header">
-					<text class="card-title">{{ $t('home.connections') }}</text>
-					<image class="disk-icon" src="/static/connect.png" mode="widthFix" style="width: 50rpx; height: 50rpx;" />
+				<view class="connections-progress-bg" :style="{width: (systemStatus.connectionsPercent || '0%')}"></view>
+				<view class="connections-card-content">
+					<view class="card-header">
+						<text class="card-title">{{ $t('home.connections') }}</text>
+						<image class="disk-icon" src="/static/connect.png" mode="widthFix" style="width: 50rpx; height: 50rpx;" />
 
-				</view>
-				<view class="card-content">
-					<text class="status-value">{{ systemStatus.connectionsPercent || '0%' }}</text>
-					<text class="status-detail">{{ systemStatus.connectionsDetail || '0 / 0' }}</text>
-					<view class="progress-bar">
-						<view class="progress-fill" :style="{width: (systemStatus.connectionsPercent || '0%')}"></view>
+					</view>
+					<view class="card-content">
+						<text class="status-value">{{ systemStatus.connectionsPercent || '0%' }}</text>
+						<text class="status-detail">{{ systemStatus.connectionsDetail || '0 / 0' }}</text>
 					</view>
 				</view>
 			</view>
@@ -153,19 +167,19 @@
 			</view>
 			<view class="disk-list">
 				<view class="disk-item" v-for="(disk, index) in diskInfo" :key="index">
-					<view class="disk-info">
-						<text class="disk-mount">
-							{{ disk.mount }}
-							<text v-if="disk.mount === '/tmp'" class="disk-temp-label">{{ $t('home.temp_space') }}</text>
-						</text>
-						<text class="disk-device">{{ disk.device }}</text>
-					</view>
-					<view class="disk-usage">
-						<text class="disk-usage-text">{{ disk.usagePercent }}%</text>
-						<view class="disk-progress-bar">
-							<view class="disk-progress-fill" :style="{width: disk.usagePercent + '%'}"></view>
+					<view class="disk-progress-bg" :style="{width: disk.usagePercent + '%'}"></view>
+					<view class="disk-item-content">
+						<view class="disk-info">
+							<text class="disk-mount">
+								{{ disk.mount }}
+								<text v-if="disk.mount === '/tmp'" class="disk-temp-label">{{ $t('home.temp_space') }}</text>
+							</text>
+							<text class="disk-device">{{ disk.device }}</text>
 						</view>
-						<text class="disk-detail">{{ disk.usedSize }} / {{ disk.totalSize }}</text>
+						<view class="disk-usage">
+							<text class="disk-usage-text">{{ disk.usagePercent }}%</text>
+							<text class="disk-detail">{{ disk.usedSize }} / {{ disk.totalSize }}</text>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -173,7 +187,7 @@
 		
 		<!-- 网站链接 -->
 		<view class="footer-link" @click="openWebsite">
-			<text class="footer-text">www.openappfilter.com</text>
+			<text class="footer-text">Modified By FXDaily@Bilibili</text>
 		</view>
 
 	</view>
@@ -184,6 +198,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 	data() {
 		return {
+			statusBarHeight: 0,
 			loading: false,
 			isFirstLoad: true, 
 			timer: null,
@@ -235,6 +250,7 @@ export default {
 		}
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
 		this.updateTabBarText()
 		uni.setNavigationBarTitle({
 			title: this.$t('home.title')
@@ -264,11 +280,11 @@ export default {
 	methods: {
 
 		goBack() {
-			this.stopAutoRefresh()
-			uni.reLaunch({
-				url: '/pages/device_list'
-			})
-		},
+					this.stopAutoRefresh()
+					uni.reLaunch({
+						url: '/pages/device_list'
+					})
+				},
 		
 		// 打开网站
 		openWebsite() {
@@ -278,7 +294,7 @@ export default {
 				success: (res) => {
 					if (res.confirm) {
 						// 在浏览器中打开网站
-						plus.runtime.openURL('https://www.openappfilter.com')
+						plus.runtime.openURL('https://b23.tv/O4b8mzV')
 					}
 				}
 			})
@@ -679,16 +695,24 @@ export default {
 	@import '@/styles/common.scss';
 
 
+	.deviceinfo-card {
+		background: rgba(255, 255, 255, 0.95);
+		border-radius: 30rpx;
+		padding: 30rpx ;
+		margin-bottom: 30rpx;
+		box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+	}
+
 	.device-card {
 		background: rgba(255, 255, 255, 0.95);
-		border-radius: 20rpx;
+		border-radius: 30rpx;
 		padding: 40rpx;
 		margin-bottom: 30rpx;
 		box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 	}
 
 	.device-header {
-		margin-bottom: 20rpx;
+		margin-bottom: 0rpx;
 	}
 
 	.device-name {
@@ -762,18 +786,102 @@ export default {
 
 
 	.cache-card .progress-fill {
-		background: linear-gradient(90deg, #FF9800, #FFC107);
+		background:  #8b96e3;
 	}
 
 	.cache-card .status-value {
-		color: #FF9800;
+		color: #000;
 	}
 
 	.status-card {
 		background: rgba(255, 255, 255, 0.95);
-		border-radius: 16rpx;
-		padding: 30rpx;
+		border-radius: 30rpx;
+		padding: 30rpx ;
 		box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+	}
+
+	.cpu-card {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cpu-progress-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: #e0e7ff;
+		border-radius: 0rpx;
+		transition: width 0.3s ease;
+		z-index: 1;
+	}
+
+	.cpu-card-content {
+		position: relative;
+		z-index: 2;
+	}
+
+	.memory-card {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.memory-progress-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: #e0e7ff;
+		border-radius: 0rpx;
+		transition: width 0.3s ease;
+		z-index: 1;
+	}
+
+	.memory-card-content {
+		position: relative;
+		z-index: 2;
+	}
+
+	.cache-card {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cache-progress-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: #e0e7ff;
+		border-radius: 0rpx;
+		transition: width 0.3s ease;
+		z-index: 1;
+	}
+
+	.cache-card-content {
+		position: relative;
+		z-index: 2;
+	}
+
+	.connections-card {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.connections-progress-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: #e0e7ff;
+		border-radius: 0rpx;
+		transition: width 0.3s ease;
+		z-index: 1;
+	}
+
+	.connections-card-content {
+		position: relative;
+		z-index: 2;
 	}
 
 	.card-header {
@@ -814,24 +922,24 @@ export default {
 
 	.progress-bar {
 		width: 100%;
-		height: 8rpx;
-		background: #f0f0f0;
-		border-radius: 4rpx;
+		height: 30rpx;
+		background: rgba(0, 0, 0, 0.05);
+		border-radius: 20rpx;
 		overflow: hidden;
 	}
 
 	.progress-fill {
 		height: 100%;
-		border-radius: 4rpx;
+		border-radius: 7rpx;
 		transition: width 0.3s ease;
 	}
 
 	.cpu-card .progress-fill {
-		background: linear-gradient(90deg, #FF5722, #FF9800);
+		background:  #e0e7ff
 	}
 
 	.memory-card .progress-fill {
-		background: linear-gradient(90deg, #2196F3, #03A9F4);
+		background:  #8b96e3
 	}
 
 	.temp-card .status-value {
@@ -863,11 +971,11 @@ export default {
 	}
 
 	.connections-card .progress-fill {
-		background: linear-gradient(90deg, #2196F3, #03A9F4);
+		background:  #8b96e3
 	}
 
 	.connections-card .status-value {
-		color: #2196F3;
+		color: #000;
 	}
 
 	.refresh-section {
@@ -904,7 +1012,7 @@ export default {
 
 	.network-card {
 		background: rgba(255, 255, 255, 0.95);
-		border-radius: 20rpx;
+		border-radius: 30rpx;
 		padding: 40rpx;
 		margin-bottom: 30rpx;
 		box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
@@ -950,7 +1058,7 @@ export default {
 	.loading-content {
 		background: white;
 		padding: 40rpx;
-		border-radius: 20rpx;
+		border-radius: 30rpx;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
@@ -982,7 +1090,7 @@ export default {
 
 	.disk-card {
 		background: rgba(255, 255, 255, 0.95);
-		border-radius: 20rpx;
+		border-radius: 30rpx;
 		padding: 40rpx;
 		margin-bottom: 30rpx;
 		box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
@@ -1014,8 +1122,25 @@ export default {
 	.disk-item {
 		padding: 20rpx;
 		background: rgba(0, 0, 0, 0.02);
-		border-radius: 12rpx;
-		border-left: 4rpx solid #2196F3;
+		border-radius: 16rpx;	
+		position: relative;
+		overflow: hidden;
+	}
+
+	.disk-progress-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: #e0e7ff;
+		border-radius: 0rpx;
+		transition: width 0.3s ease;
+		z-index: 1;
+	}
+
+	.disk-item-content {
+		position: relative;
+		z-index: 2;
 	}
 
 	.disk-info {
@@ -1051,16 +1176,16 @@ export default {
 
 	.disk-progress-bar {
 		width: 100%;
-		height: 8rpx;
-		background: #f0f0f0;
-		border-radius: 4rpx;
+		height: 20rpx;
+		background: #e0e7ff;
+		border-radius: 7rpx;
 		overflow: hidden;
 	}
 
 	.disk-progress-fill {
 		height: 100%;
-		border-radius: 4rpx;
-		background: linear-gradient(90deg, #4CAF50, #8BC34A);
+		border-radius: 7rpx;
+		background:#bec6fd;
 		transition: width 0.3s ease;
 	}
 

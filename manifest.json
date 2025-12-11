@@ -1,9 +1,9 @@
 {
-    "name" : "OPAssistant",
-    "appid" : "__UNI__000000",
-    "description" : "OpenWrt assistant",
-    "versionName" : "1.0.6",
-    "versionCode" : 106,
+    "name" : "OP Mobile",
+    "appid" : "__UNI__6137149",
+    "description" : "OpenWrt Mobile Dashboard",
+    "versionName" : "1.0.3",
+    "versionCode" : 103,
     "transformPx" : false,
     "app-plus" : {
         "usingComponents" : true,
@@ -18,16 +18,15 @@
         "ssl" : {
             "untrustedca" : "accept"
         },
-
         "modules" : {},
-
         "distribute" : {
             "android" : {
                 "permissions" : [
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>"
                 ],
-                "minSdkVersion" : 19
+                "minSdkVersion" : 21,
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a" ]
             },
             "ios" : {
                 "dSYMs" : false,
@@ -65,13 +64,14 @@
                         "spotlight@3x" : "unpackage/res/icons/120x120.png"
                     }
                 }
+            },
+            "splashscreen" : {
+                "androidStyle" : "common"
             }
         }
     },
-
     "quickapp" : {},
-    "mp-weixin" : {
-    },
+    "mp-weixin" : {},
     "mp-alipay" : {
         "usingComponents" : true
     },

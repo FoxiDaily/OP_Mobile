@@ -1,6 +1,15 @@
 <template>
 	<view class="container">
-
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;top: 0rpx;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('parental_control.app_filter_rules') }}</text>
+			</view>
+		</view>
 
 		<view class="tab-container">
 			<view 
@@ -48,7 +57,7 @@
 							<switch 
 								:checked="category.allSelected" 
 								@change="toggleCategorySelect(categoryIndex)"
-								color="#007AFF"
+								color="#6572CC"
 							/>
 							<text class="select-all-text">{{ $t('parental_control.select_all') }}</text>
 						</view>
@@ -68,7 +77,7 @@
 								<switch 
 									:checked="app.selected" 
 									@change="toggleAppSelect(categoryIndex, appIndex)"
-									color="#007AFF"
+									color="#6572CC"
 								/>
 							</view>
 						</view>
@@ -89,7 +98,7 @@
 		</view>
 
 		<view v-if="currentTab === 1" class="time-config-container">
-			<!-- 加载状态 -->
+			<!-- 加载状�-->
 			<view v-if="loading" class="loading-overlay">
 				<view class="loading-content">
 					<view class="loading-spinner"></view>
@@ -142,7 +151,7 @@
 							</view>
 						</view>
 						<view class="add-slot-btn" @click="addTimeSlot">
-							<text class="add-text">+ {{ $t('parental_control.add_time_slot') }}</text>
+							<text class="add-text" style="color:#6572CC ;">+ {{ $t('parental_control.add_time_slot') }}</text>
 						</view>
 					</view>
 				</view>
@@ -333,6 +342,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 	data() {
 		return {
+			statusBarHeight: 0,
 			loading: false,
 			saving: false,
 			deviceInfo: {},
@@ -369,7 +379,7 @@ export default {
 		uni.setNavigationBarTitle({
 			title: this.$t('parental_control.app_filter_rules')
 		})
-		
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		this.deviceInfo = DeviceManager.getCurrentDevice()
 		this.session = this.deviceInfo.sysauth
 		const protocol = this.deviceInfo.useHttps ? 'https' : 'http'
@@ -911,7 +921,7 @@ export default {
 
 	display: flex;
 	background: rgba(255, 255, 255, 0.1);
-	border-radius: 12rpx;
+	border-radius: 30rpx;
 	padding: 8rpx;
 }
 .container {
@@ -921,7 +931,7 @@ export default {
 	flex: 1;
 	text-align: center;
 	padding: 15rpx 0;
-	border-radius: 8rpx;
+	border-radius: 20rpx;
 	transition: all 0.3s ease;
 }
 
@@ -951,7 +961,7 @@ export default {
 
 .config-section {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 20rpx;
 	padding: 20rpx;
 	margin-bottom: 20rpx;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
@@ -981,7 +991,7 @@ export default {
 .mode-selector {
 	display: flex;
 	background: rgba(0, 0, 0, 0.05);
-	border-radius: 12rpx;
+	border-radius: 15rpx;
 	padding: 6rpx;
 }
 
@@ -989,12 +999,12 @@ export default {
 	flex: 1;
 	text-align: center;
 	padding: 20rpx 0;
-	border-radius: 8rpx;
+	border-radius: 10rpx;
 	transition: all 0.3s ease;
 }
 
 .mode-item.active {
-	background: #007AFF;
+	background: #6572CC;
 }
 
 .mode-text {
@@ -1018,13 +1028,13 @@ export default {
 	margin-bottom: 20rpx;
 	padding: 20rpx;
 	background: rgba(0, 0, 0, 0.05);
-	border-radius: 12rpx;
+	border-radius: 15rpx;
 }
 
 .time-picker {
 	padding: 10rpx 15rpx;
 	background: #fff;
-	border-radius: 8rpx;
+	border-radius: 10rpx;
 	font-size: 28rpx;
 	color: #333;
 	border: 1rpx solid #ddd;
@@ -1055,15 +1065,15 @@ export default {
 
 .add-slot-btn {
 	padding: 20rpx;
-	background: rgba(0, 122, 255, 0.1);
-	border-radius: 12rpx;
+	background: #ffffff;
+	border-radius: 15rpx;
 	text-align: center;
-	border: 2rpx dashed #007AFF;
+	border: 2rpx dashed #6572CC;
 }
 
 .add-text {
 	font-size: 28rpx;
-	color: #007AFF;
+	color: #6572CC;
 	font-weight: 500;
 }
 
@@ -1077,7 +1087,7 @@ export default {
 	margin-bottom: 20rpx;
 	padding: 20rpx;
 	background: rgba(0, 0, 0, 0.05);
-	border-radius: 12rpx;
+	border-radius: 15rpx;
 }
 
 .setting-label {
@@ -1090,7 +1100,7 @@ export default {
 	flex: 1;
 	padding: 15rpx 20rpx;
 	background: #fff;
-	border-radius: 8rpx;
+	border-radius: 10rpx;
 	font-size: 28rpx;
 	color: #333;
 	border: 1rpx solid #ddd;
@@ -1112,14 +1122,14 @@ export default {
 .weekday-item {
 	padding: 20rpx 30rpx;
 	background: rgba(0, 0, 0, 0.05);
-	border-radius: 12rpx;
+	border-radius: 15rpx;
 	border: 2rpx solid transparent;
 	transition: all 0.3s ease;
 }
 
 .weekday-item.active {
-	background: #007AFF;
-	border-color: #007AFF;
+	background: #6572CC;
+	border-color: #6572CC;
 }
 
 .weekday-text {
@@ -1148,7 +1158,7 @@ export default {
 	align-items: center;
 	padding: 20rpx;
 	background: rgba(0, 0, 0, 0.05);
-	border-radius: 12rpx;
+	border-radius: 15rpx;
 	margin-bottom: 15rpx;
 }
 
@@ -1235,7 +1245,7 @@ export default {
 	width: 60rpx;
 	height: 60rpx;
 	border: 4rpx solid #f3f3f3;
-	border-top: 4rpx solid #007AFF;
+	border-top: 4rpx solid #6572CC;
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 	margin-bottom: 20rpx;
@@ -1260,7 +1270,7 @@ export default {
 
 .category-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 20rpx;
 	margin-bottom: 20rpx;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
 	overflow: hidden;
@@ -1303,7 +1313,7 @@ export default {
 
 .selected-count {
 	font-size: 28rpx;
-	color: #007AFF;
+	color: #6572CC;
 	font-weight: 600;
 }
 
@@ -1382,8 +1392,8 @@ export default {
 .save-button {
 	width: 100%;
 	height: 88rpx;
-	background: #007AFF;
-	border-radius: 16rpx;
+	background: #6572CC;
+	border-radius: 30rpx;
 	border: none;
 	display: flex;
 	justify-content: center;

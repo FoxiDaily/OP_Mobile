@@ -1,13 +1,15 @@
 <template>
   <view class="container">
-    <!-- <view class="nav-header" style="display: flex; align-items: center; position: relative;">
-      <view class="back-btn" @click="goBack" style="z-index: 2;">
-        <image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
-      </view>
-      <view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
-        <text style="font-size: 32rpx; font-weight: bold; color: #fff;">OpenWrt</text>
-      </view>
-    </view> -->
+	  <view class="header" :style="{ height: statusBarHeight}">
+	  </view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+				<view class="back-btn" @click="goBack" style="z-index: 2;">
+					<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+				</view>
+				<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+					<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('statistics.title') }}</text>
+				</view>
+			</view>
 
     <view class="tab-bar">
       <view :class="['tab', currentTab === 0 ? 'active' : '']" @click="currentTab = 0">{{ $t('statistics.bandwidth') }}</view>
@@ -69,13 +71,13 @@
           </view>
         </view>
 
-        <view class="chart-container">
+        <!--<view class="chart-container">
           <view class="chart-wrapper">
             <view class="charts-box">
-              <l-echart ref="loadChartRef" @finished="initLoadChart"></l-echart>
+              <l-echart ref="loadChartRef" class="chart-canvas" @finished="initLoadChart"></l-echart>
             </view>
           </view>
-        </view>
+        </view>-->
       </view>
 
       <view v-else class="status-empty">
@@ -130,19 +132,19 @@
               <text class="stat-value">{{ formatBandwidth(averageTxRate) }}</text>
             </view>
             <view class="stat-row">
-              <text class="stat-label">{{ $t('statistics.peak') }}：</text>
+              <text class="stat-label">{{ $t('statistics.peak') }}：</text> 
               <text class="stat-value">{{ formatBandwidth(peakTxRate) }}</text>
             </view>
           </view>
         </view>
 
-        <view class="chart-container">
+        <!--<view class="chart-container">
           <view class="chart-wrapper">
             <view class="charts-box">
-              <l-echart ref="chartRef" @finished="initChart"></l-echart>
+              <l-echart ref="chartRef" class="chart-canvas" @finished="initChart"></l-echart>
             </view>
           </view>
-        </view>
+        </view>-->
       </view>
 
       <view v-else-if="selectedDevice && !bandwidthData" class="status-empty">
@@ -150,7 +152,7 @@
       </view>
 
       <view v-else class="status-empty">
-        {{ $t('statistics.select_interface_first') }}
+        {{ $t('statistics.select_interface_first') }} 
       </view>
     </view>
   </view>
@@ -158,12 +160,13 @@
 
 <script>
 import DeviceManager from '@/utils/deviceManager.js'
-import * as echarts from '@/uni_modules/lime-echart/static/echarts.min.js'
+import * as echarts from '@/uni_modules/lime-echart/static/app/echarts.min.js'
 
 export default {
   data() {
     return {
-             currentTab: 0,
+		statusBarHeight: 0,
+		currentTab: 0,
        session: '',
        url: '/ubus',
        deviceInfo: {},
@@ -534,6 +537,7 @@ export default {
     }
   },
      onLoad() {
+		 this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
      uni.setNavigationBarTitle({
        title: this.$t('statistics.title')
      })
@@ -586,10 +590,10 @@ export default {
     },
   methods: {
     goBack() {
-      this.stopAutoRefresh()
-      this.stopLoadRefresh()
-      uni.reLaunch({ url: '/pages/device_list' })
-    },
+          this.stopAutoRefresh()
+          this.stopLoadRefresh()
+          uni.reLaunch({ url: '/pages/device_list' })
+        },
     
 
          loadPageData() {
@@ -822,7 +826,9 @@ export default {
       },
 
      async initLoadChart() {
+       console.log('initLoadChart called, $refs.loadChartRef =', this.$refs && this.$refs.loadChartRef)
        if (!this.$refs.loadChartRef){
+        console.warn('loadChartRef not available yet')
         return
        }
        try {
@@ -994,9 +1000,13 @@ export default {
                  
      
        async initChart() {
-         if (!this.$refs.chartRef) return
-         try {
-           const chart = await this.$refs.chartRef.init(echarts)
+           console.log('initChart called, $refs.chartRef =', this.$refs && this.$refs.chartRef)
+           if (!this.$refs.chartRef) {
+             console.warn('chartRef not available yet')
+             return
+           }
+           try {
+             const chart = await this.$refs.chartRef.init(echarts)
            this._chartInstance = chart
            
            this.chartOption.legend.data = [
@@ -1159,14 +1169,14 @@ export default {
   margin: 40rpx 0;
   font-size: 28rpx;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   padding: 40rpx;
   box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 }
 
 .interface-selector {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   padding: 20rpx;
   margin-bottom: 20rpx;
   box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
@@ -1188,7 +1198,7 @@ export default {
 .interface-item {
   padding: 15rpx 25rpx;
   background: rgba(0, 0, 0, 0.05);
-  border-radius: 25rpx;
+  border-radius: 20rpx;
   font-size: 26rpx;
   color: #666;
   transition: all 0.3s ease;
@@ -1196,7 +1206,7 @@ export default {
 }
 
 .interface-item.active {
-  background: #007AFF;
+  background: #6572CC;
   color: white;
   font-weight: bold;
 }
@@ -1207,14 +1217,14 @@ export default {
 
  .bandwidth-card {
    background: rgba(255, 255, 255, 0.95);
-   border-radius: 20rpx;
+   border-radius: 30rpx;
    padding: 10rpx;
    box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
  }
 
  .load-card {
    background: rgba(255, 255, 255, 0.95);
-   border-radius: 20rpx;
+   border-radius: 30rpx;
    padding: 10rpx;
    box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
  }
@@ -1274,7 +1284,7 @@ export default {
  .stat-section {
    flex: 1;
    background: rgba(0, 0, 0, 0.02);
-   border-radius: 15rpx;
+   border-radius: 30rpx;
    padding: 15rpx;
    min-width: 0;
  }
@@ -1306,12 +1316,12 @@ export default {
  }
 
  .current-value {
-   color: #0066ff !important;
+   color: #6572CC !important;
  }
 
  .chart-container {
    background: rgba(0, 0, 0, 0.02);
-   border-radius: 15rpx;
+   border-radius: 30rpx;
    padding: 5rpx;
  }
 

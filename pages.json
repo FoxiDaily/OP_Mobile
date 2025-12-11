@@ -166,8 +166,8 @@
 
     ],
 	"tabBar":{
-		"color":"#000000",
-		"selectedColor":"#007AFF",
+		"color":"#888BA8",
+		"selectedColor":"#6572CC",
 		"list":[
 				{
 					"iconPath":"static/home.png",
@@ -202,6 +202,7 @@
 		]
 	},
 	"globalStyle": {
+		"navigationStyle": "custom",
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "OpenWrt Tool",
 		"navigationBarBackgroundColor": "#F8F8F8",

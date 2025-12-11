@@ -1,5 +1,24 @@
 <template>
 	<view class="container">
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('about.title') }}</text>
+			</view>
+		</view>
+		
+		<view class="header">
+			<view style="flex: 1; display: flex; justify-content: center; align-items: flex-end; right: 0;height: 200rpx; pointer-events: none;">
+				<text style="font-size: 100rpx; font-weight: bold; color: #e0e7ff;position: absolute;">OP Mobile</text>
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; align-items: flex-start; right: 0;height: 150rpx; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: normal; color: #e0e7ff;position: absolute;">{{ $t('about.base') }}</text>
+			</view>
+		</view>
 		<view class="about-card">
 			<view class="about-content">
 				<view class="about-section">
@@ -27,23 +46,29 @@
 			</view>
 		</view>
 	</view>
+
 </template>
 
 <script>
 export default {
+	
 	data() {
 		return {
-			version: '1.0.6'
+			statusBarHeight: 0,
+			version: '1.0.3'
 		}
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		uni.setNavigationBarTitle({
 			title: this.$t('about.title')
 		})
 	},
 	methods: {
 		goBack() {
-			uni.navigateBack()
+			uni.navigateBack({
+				delta: 1
+			});
 		}
 	}
 }
@@ -59,7 +84,7 @@ export default {
 
 .about-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	padding: 60rpx 40rpx;
 	margin-top: 50rpx;
 	text-align: center;
@@ -97,7 +122,7 @@ export default {
 	color: #333;
 	display: block;
 	margin-bottom: 20rpx;
-	border-left: 4rpx solid #007aff;
+	border-left: 4rpx solid #6572CC;
 	padding-left: 20rpx;
 }
 

@@ -1,6 +1,15 @@
 	<template>
 	<view class="container">
-
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('factory_reset.title') }}</text>
+			</view>
+		</view>
 		<view v-if="showProgress" class="progress-overlay">
 			<view class="progress-content">
 				<view class="progress-spinner"></view>
@@ -14,7 +23,7 @@
 			<view class="reset-icon">
 				<image src="/static/reset.png" mode="aspectFit" class="app-icon-image" />
 			</view>
-			<text class="reset-title">{{ $t('factory_reset.factory_reset_title') }}</text>
+			<text class="reset-title">\n{{ $t('factory_reset.factory_reset_title') }}</text>
 			<text class="reset-desc">{{ $t('factory_reset.factory_reset_desc') }}</text>
 			
 			<button class="reset-btn" @click="confirmReset" :disabled="resetting">
@@ -31,6 +40,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 		data() {
 			return {
+				statusBarHeight: 0,
 				resetting: false,
 				showProgress: false,
 				countdown: 60,
@@ -42,6 +52,7 @@ export default {
 			}
 		},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		uni.setNavigationBarTitle({
 			title: this.$t('factory_reset.title')
 		})
@@ -57,7 +68,9 @@ export default {
 		this.clearCountdown()
 	},
 	methods: {
-	
+		goBack() {
+			uni.navigateBack()
+		},
 		confirmReset() {
 			uni.showModal({
 				title: this.$t('factory_reset.confirm_factory_reset'),
@@ -213,7 +226,7 @@ export default {
 
 .reset-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	padding: 60rpx 40rpx;
 	margin-top: 50rpx;
 	text-align: center;

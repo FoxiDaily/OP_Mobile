@@ -1,5 +1,15 @@
 <template>
 	<view class="container">
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;top: 25rpx;">			
+			<view  @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;left: 20rpx" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('parental_control.title') }}</text>
+			</view>
+		</view>
 		<view class="about-card">
 			
 			
@@ -17,9 +27,11 @@
 export default {
 	data() {
 		return {
+			statusBarHeight: 0,
 		}
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		uni.setNavigationBarTitle({
 			title: this.$t('parental_control.title')
 		})
@@ -46,7 +58,7 @@ export default {
 
 .about-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	padding: 60rpx 40rpx;
 	margin-top: 50rpx;
 	text-align: center;
@@ -91,7 +103,7 @@ export default {
 
 .about-link {
 	font-size: 28rpx;
-	color: #007aff;
+	color: #6572CC;
 	line-height: 1.6;
 	text-align: left;
 	display: block;
@@ -106,7 +118,7 @@ export default {
 }
 
 .back-btn {
-	background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
+	background: linear-gradient(135deg, #6572CC 0%, #5ac8fa 100%);
 	color: white;
 	border: none;
 	border-radius: 25rpx;
