@@ -1,15 +1,16 @@
-
 <template>
 	<view class="container">
-	
-		<!-- <view class="nav-header" style="display: flex; align-items: center; position: relative;">
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
 			<view class="back-btn" @click="goBack" style="z-index: 2;">
 				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
 			</view>
 			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
-				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">OpenWrt</text>
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('network.title') }}</text>
 			</view>
-		</view> -->
+		</view>
+
 		
 		
 	  <view class="tab-bar">
@@ -123,6 +124,7 @@
   export default {
 	data() {
 	  return {
+		statusBarHeight: 0,
 		currentTab: 0,
 		session: '',
 		url: '/ubus',
@@ -135,6 +137,7 @@
 	  }
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
 		uni.setNavigationBarTitle({
 			title: this.$t('network.title')
 		})
@@ -150,10 +153,10 @@
 	methods: {
 	
 	  goBack() {
-		uni.reLaunch({
-		  url: '/pages/device_list'
-		})
-	  },
+	  		uni.reLaunch({
+	  		  url: '/pages/device_list'
+	  		})
+	  	  },
 	  loadData() {
 		this.fetchInterfaces()
 		this.fetchDevices()
@@ -538,7 +541,7 @@
 
 .iface-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	margin-bottom: 30rpx;
 	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 	padding: 40rpx;
@@ -556,11 +559,11 @@
 }
   .iface-proto {
 	font-size: 26rpx;
-	color: #666;
+	color: #6572CC;
 	font-weight: 500;
 	background: #e0e7ff;
-	border-radius: 8rpx;
-	padding: 4rpx 16rpx;
+	border-radius: 20rpx;
+	padding: 8rpx 18rpx;
   }
   .iface-body {
 	margin-bottom: 0;
@@ -605,7 +608,7 @@
   }
   .dev-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	margin-bottom: 30rpx;
 	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 	padding: 40rpx;
@@ -665,13 +668,13 @@
 	margin: 24rpx 0 12rpx 0;
 	padding-left: 8rpx;
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 12rpx;
+	border-radius: 30rpx;
 	padding: 16rpx 20rpx;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
 }
   .wireless-radio-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	margin-bottom: 30rpx;
 	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 	padding: 40rpx;
@@ -749,7 +752,7 @@
 	margin: 40rpx 0;
 	font-size: 28rpx;
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	padding: 40rpx;
 	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 }

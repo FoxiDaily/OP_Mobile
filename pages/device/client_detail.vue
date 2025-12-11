@@ -1,6 +1,15 @@
 <template>
   <view class="container">
-
+	  <view class="header" :style="{ height: statusBarHeight}">
+	  </view>
+	<view class="nav-header" style="display: flex; align-items: center; position: relative;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('client_detail.title') }}</text>
+			</view>
+		</view>
 
     <view class="tab-bar">
       <view :class="['tab', currentTab === 0 ? 'active' : '']" @click="currentTab = 0">{{ $t('client_detail.basic_info') }}</view>
@@ -114,11 +123,12 @@
 
 <script>
 import DeviceManager from '@/utils/deviceManager.js'
-import * as echarts from '@/uni_modules/lime-echart/static/echarts.min.js'
+import * as echarts from '@/uni_modules/lime-echart/static/app/echarts.min.js'
 
 export default {
   data() {
     return {
+	  statusBarHeight: 0,
       currentTab: 1,
       userInfo: {},
       deviceInfo: {},
@@ -134,6 +144,7 @@ export default {
     }
   },
   onLoad(options) {
+	  this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
     uni.setNavigationBarTitle({
       title: this.$t('client_detail.title')
     })
@@ -166,7 +177,9 @@ export default {
   },
   methods: {
     goBack() {
-      uni.navigateBack()
+          uni.navigateBack()
+ 
+      //uni.reLaunch({ url: '/pages/device/apps' })
     },
     loadData() {
       if (this.currentTab === 1) {
@@ -431,7 +444,7 @@ export default {
 
 .info-card, .chart-card, .records-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   padding: 20rpx;
 
 }
@@ -531,7 +544,7 @@ export default {
 .app-icon {
   width: 60rpx;
   height: 60rpx;
-  background: rgba(0, 122, 255, 0.1);
+  background:#e0e7ff;
   border-radius: 12rpx;
   display: flex;
   align-items: center;

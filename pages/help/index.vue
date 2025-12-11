@@ -1,37 +1,49 @@
 <template>
-	<view class="container">
-		<view class="help-card">
 
-			<view class="help-content">
-				<view class="help-section">
-					<text class="section-title">{{ $t('help.usage_scenarios') }}</text>
-					<view class="section-item">
-						<text class="item-title">{{ $t('help.supported_version') }}</text>
-						<text class="item-desc">{{ $t('help.supported_version_desc') }}</text>
-					</view>
-					<view class="section-item">
-						<text class="item-title">{{ $t('help.supported_devices') }}</text>
-						<text class="item-desc">{{ $t('help.supported_devices_desc') }}</text>
-					</view>
+		<view class="container">
+			<view class="header" :style="{ height: statusBarHeight}">
+			</view>
+			<view class="nav-header" style="display: flex; align-items: center; position: relative;top: 20rpx;">
+				<view class="back-btn" @click="goBack" style="z-index: 2;">
+					<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
 				</view>
 				
-				<view class="help-section">
-					<text class="section-title">{{ $t('help.faq') }}</text>
-					<view class="section-item">
-						<text class="item-title">{{ $t('help.q1') }}</text>
-						<text class="item-desc">{{ $t('help.a1') }}</text>
+				<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+					<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('help.title') }}</text>
+				</view>
+			</view>
+			<view class="help-card">
+				<view class="help-content">
+					<view class="help-section">
+						<text class="section-title">{{ $t('help.usage_scenarios') }}</text>
+						<view class="section-item">
+							<text class="item-title">{{ $t('help.supported_version') }}</text>
+							<text class="item-desc">{{ $t('help.supported_version_desc') }}</text>
+						</view>
+						<view class="section-item">
+							<text class="item-title">{{ $t('help.supported_devices') }}</text>
+							<text class="item-desc">{{ $t('help.supported_devices_desc') }}</text>
+						</view>
 					</view>
-					<view class="section-item">
-						<text class="item-title">{{ $t('help.q2') }}</text>
-						<text class="item-desc">{{ $t('help.a2') }}</text>
-					</view>
-					<view class="section-item">
-						<text class="item-title">{{ $t('help.q3') }}</text>
-						<text class="item-desc">{{ $t('help.a3') }}</text>
-					</view>
-					<view class="section-item">
-						<text class="item-title">{{ $t('help.q4') }}</text>
-						<text class="item-desc">{{ $t('help.a4') }}</text>
+					
+					<view class="help-section">
+						<text class="section-title">{{ $t('help.faq') }}</text>
+						<view class="section-item">
+							<text class="item-title">{{ $t('help.q1') }}</text>
+							<text class="item-desc">{{ $t('help.a1') }}</text>
+						</view>
+						<view class="section-item">
+							<text class="item-title">{{ $t('help.q2') }}</text>
+							<text class="item-desc">{{ $t('help.a2') }}</text>
+						</view>
+						<view class="section-item">
+							<text class="item-title">{{ $t('help.q3') }}</text>
+							<text class="item-desc">{{ $t('help.a3') }}</text>
+						</view>
+						<view class="section-item">
+							<text class="item-title">{{ $t('help.q4') }}</text>
+							<text class="item-desc">{{ $t('help.a4') }}</text>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -43,10 +55,13 @@
 export default {
 	data() {
 		return {
+			 statusBarHeight: 0
 		}
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		// 动态设置页面标题
+		
 		uni.setNavigationBarTitle({
 			title: this.$t('help.title')
 		})
@@ -54,7 +69,8 @@ export default {
 	methods: {
 		goBack() {
 			uni.navigateBack()
-		}
+		},
+		
 	}
 }
 </script>
@@ -62,13 +78,13 @@ export default {
 <style scoped>
 .container {
 	min-height: 100vh;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(135deg, #8b96e3 0%, #e0e7ff 100%);
 	padding: 20rpx;
 }
 
 .help-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	padding: 60rpx 40rpx;
 	margin-top: 50rpx;
 	text-align: center;
@@ -106,7 +122,7 @@ export default {
 	color: #333;
 	display: block;
 	margin-bottom: 20rpx;
-	border-left: 4rpx solid #007aff;
+	border-left: 4rpx solid #6572CC;
 	padding-left: 20rpx;
 }
 

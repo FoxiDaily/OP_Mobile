@@ -7,7 +7,7 @@
     "help_feedback": "Help",
     "about": "About",
     "settings": "Settings",
-    "language_settings": "Language Settings",
+    "language_settings": "Language",
     "host_address": "Host",
     "port": "Port",
     "username": "Username",
@@ -39,23 +39,24 @@
     "username_format_error": "Username can only contain letters and numbers",
     "remark_required": "Please enter remark",
     "remark_length_error": "Remark length cannot exceed 64 characters",
-    "edit_success": "Edit successful",
-    "add_success": "Add successful",
+    "edit_success": "Successfully edited",
+    "add_success": "Successfully added",
     "operation_failed": "Operation failed",
     "delete_confirm_title": "Confirm Delete",
     "delete_confirm_content": "Are you sure you want to delete this device?",
-    "delete_success": "Delete successful",
+    "delete_success": "Delete successfully",
     "delete_failed": "Delete failed",
     "connecting": "Connecting to device...",
     "connection_failed": "Connect error",
     "connection_success": "Connect ok",
-    "login_success": "Login successful",
+    "login_success": "Login successfully",
     "relogin_success": "Reconnect ok",
     "login_failed": "Login failed",
     "login_failed_content": "Incorrect username or password",
     "error_network": "Network connection error",
     "error_auth": "Incorrect username or password, please check login information",
-    "error_other": "Connection failed"
+    "error_other": "Connection failed",
+	"menu":"Menu"
   },
   "home": {
     "loading": "Loading device information...",
@@ -86,7 +87,9 @@
     "hours": "h",
     "minutes": "m",
     "seconds": "s",
-    "title": "Home"
+    "title": "Home",
+	"open_website":"Open my homepage",
+	"open_website_confirm":"Open\nhttps://b23.tv/O4b8mzV\nin browser?"
   },
   "network": {
     "title": "Network",
@@ -267,11 +270,12 @@
     "version_number": "Version",
     "developer_info": "Developer Info",
     "author": "Author",
-    "author_name": "destan19(TT)",
+    "author_name": "destan19(TT) (Original Developer)\nFXDaily (OP Mobile Developer)",
     "introduction": "Introduction",
-    "introduction_desc": "Full-stack developer with over 10 years of network communication development experience, author of OpenAppFilter parental control plugin",
+	"base": "Based On OPAssistant",
+    "introduction_desc": "destan 19(TT):\nFull-stack developer with over 10 years of network communication development experience, author of OpenAppFilter parental control plugin.\n\nFXDaily:\nA university student and a Bilibili uploader.Thanks for TT's efforts!",
     "website": "Website",
-    "website_url": "www.openappfilter.com"
+    "website_url": "www.openappfilter.com\nhttps://space.bilibili.com/391608428"
   },
   "user_info": {
     "title": "My Info"

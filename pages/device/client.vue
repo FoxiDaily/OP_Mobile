@@ -1,14 +1,15 @@
 <template>
-  <view class="container">
-    <!-- <view class="nav-header" style="display: flex; align-items: center; position: relative;">
+	<view class="container">
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;">
 			<view class="back-btn" @click="goBack" style="z-index: 2;">
 				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
 			</view>
 			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
-				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">OpenWrt</text>
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('client.title') }}</text>
 			</view>
-		</view> -->
-		
+		</view>
 
      <view class="tab-bar">
       <view v-if="deviceInfo.support_parental_control" :class="['tab', currentTab === 0 ? 'active' : '']" @click="currentTab = 0">{{ $t('client.user_list') }}</view>
@@ -64,7 +65,7 @@
                       :src="getAppIconUrl(app.id)"
                       mode="aspectFit" 
                       class="app-icon-image"
-                      @error="onIconError($event, app.id)"
+                      @error="onIconError($event, app.id)" 
                     />
                     <text v-if="app.iconError" class="app-icon-fallback">📱</text>
                   </view>
@@ -86,7 +87,7 @@
               <view style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                 {{ client.mac }}
               </view>
-              <image class="kick-btn" src="/static/remove1.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" @click="kickClient(client)" />
+              <image class="kick-btn" src="/static/disconnect.png" mode="widthFix" style="width: 27rpx; height: 25rpx;" @click="kickClient(client)" />
             </view>
           </view>
           <view v-if="client.hostname" class="client-row">
@@ -146,6 +147,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
   data() {
     return {
+	  statusBarHeight: 0,
       currentTab: 0,
       session: '',
       url: '/ubus',
@@ -169,6 +171,7 @@ export default {
     }
   },
   onLoad() {
+	  this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
     uni.setNavigationBarTitle({
       title: this.$t('client.title')
     })
@@ -208,8 +211,8 @@ export default {
   },
   methods: {
     goBack() {
-      uni.reLaunch({ url: '/pages/device_list' })
-    },
+          uni.reLaunch({ url: '/pages/device_list' })
+        },
     // 跳转到用户详情页面
     goToUserDetail(user) {
       console.log('准备跳转到用户详情页面，用户信息:', user)
@@ -644,7 +647,7 @@ export default {
 }
 .client-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   margin-bottom: 30rpx;
   box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
   padding: 40rpx;
@@ -688,7 +691,7 @@ export default {
   margin: 40rpx 0;
   font-size: 28rpx;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   padding: 40rpx;
   box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
 }
@@ -703,7 +706,7 @@ export default {
 }
 .client-detail-popup {
   background: #fff;
-  border-radius: 18rpx;
+  border-radius: 30rpx;
   padding: 36rpx 40rpx 28rpx 40rpx;
   min-width: 400rpx;
   max-width: 90vw;
@@ -752,7 +755,7 @@ export default {
 /* 用户列表样式 */
 .user-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 16rpx;
+  border-radius: 30rpx;
   margin-bottom: 20rpx;
   padding: 30rpx;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
@@ -787,7 +790,7 @@ export default {
   font-size: 24rpx;
   font-weight: 600;
   padding: 6rpx 16rpx;
-  border-radius: 12rpx;
+  border-radius: 30rpx;
 }
 
 .user-status.online {
@@ -834,7 +837,7 @@ export default {
 .app-icon {
   width: 40rpx;
   height: 40rpx;
-  background: rgba(0, 122, 255, 0.1);
+  background: #e0e7ff;
   border-radius: 8rpx;
   display: flex;
   align-items: center;

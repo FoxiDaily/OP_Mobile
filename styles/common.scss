@@ -1,7 +1,7 @@
 
 .container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #97a6ee 0%, #d6b0f3 100%);
+    background: linear-gradient(135deg, #8b96e3 0%, #e0e7ff 100%);
     padding: 15rpx;
     padding-top: 0;
 }
@@ -13,7 +13,14 @@
     padding-top: 0;
 }
 
+
+.status_bar{
+	position: sticky;
+	
+}
+
 .nav-header {
+	position: sticky;
     padding: 20rpx 0;
     margin-bottom: 20rpx;
 }
@@ -45,7 +52,7 @@
 .tab-bar {
     display: flex;
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 16rpx;
+    border-radius: 30rpx;
     overflow: hidden;
     margin-bottom: 30rpx;
     box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
@@ -61,13 +68,13 @@
     font-weight: 500;
     background: transparent;
     transition: all 0.3s ease;
-    border-radius: 12rpx;
+    border-radius: 30rpx;
     margin: 0 3rpx;
     position: relative;
   }
   
   .tab.active {
-    color: #4A90E2;
+    color: #6572CC;
     background: rgba(255, 255, 255, 0.9);
     font-weight: bold;
     box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);

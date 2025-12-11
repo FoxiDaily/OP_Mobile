@@ -1,13 +1,15 @@
 <template>
 	<view class="container">
-		<!-- <view class="nav-header" style="display: flex; align-items: center; position: relative;">
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;top: 20rpx;">
 			<view class="back-btn" @click="goBack" style="z-index: 2;">
 				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
 			</view>
 			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
-				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">OpenWrt</text>
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('apps.title') }}</text>
 			</view>
-		</view> -->
+		</view>
 		<view class="app-grid">
 			<view class="app-item" v-for="(app, index) in appList" :key="index" @click="onPluginClick(app)">
 				<view class="app-icon">
@@ -27,6 +29,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 	data() {
 		return {
+			statusBarHeight: 0,
 			appList: [
 				{
 					name: this.$t('apps.parental_control'),
@@ -62,6 +65,7 @@ export default {
 		}
 	},
 	onLoad() {
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
 		uni.setNavigationBarTitle({
 			title: this.$t('apps.title')
 		})
@@ -70,10 +74,10 @@ export default {
 	},
 	methods: {
 		goBack() {
-			uni.reLaunch({
-				url: '/pages/device_list'
-			})
-		},
+					uni.reLaunch({
+						url: '/pages/device_list'
+					})
+				},
 		onPluginClick(app) {
 			console.log("点击插件:", app.name)
 			
@@ -156,8 +160,8 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: linear-gradient(135deg, #b6dad7 0%, #29d476 100%);
-	border-radius: 20rpx;
+	background: linear-gradient(135deg, #8A9DFF 0%, #6572CC 100%);
+	border-radius: 30rpx;
 	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
 }
 

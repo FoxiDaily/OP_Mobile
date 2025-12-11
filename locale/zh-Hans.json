@@ -56,7 +56,8 @@
     "login_failed_content": "用户名或密码错误",
     "error_network": "网络连接错误",
     "error_auth": "用户名或密码错误，请检查登录信息",
-    "error_other": "连接失败"
+    "error_other": "连接失败",
+	"menu":"菜单"
   },
   "home": {
     "loading": "正在加载设备信息...",
@@ -85,7 +86,9 @@
     "hours": "小时",
     "minutes": "分钟",
     "seconds": "秒",
-    "title": "首页"
+    "title": "首页",
+	"open_website":"跳转至我的主页",
+	"open_website_confirm":"是否使用外部浏览器打开\nhttps://b23.tv/O4b8mzV？"
   },
   "network": {
     "title": "网络",
@@ -293,11 +296,12 @@
     "version_number": "版本号",
     "developer_info": "开发者信息",
     "author": "作者",
-    "author_name": "destan19(TT)",
+    "author_name": "destan19(TT) (原开发者)\nFXDaily (OP Mobile开发者)",
     "introduction": "介绍",
-    "introduction_desc": "全栈开发程序员，十多年网络通信开发经验，家长控制插件OpenAppFilter作者",
+	"base": "Based On OPAssistant",
+    "introduction_desc": "destan19(TT):\n全栈开发程序员，十多年网络通信开发经验，家长控制插件OpenAppFilter作者。\n\nFXDaily:\n一个普通大学生，哔哩哔哩UP主。",
     "website": "网站",
-    "website_url": "www.openappfilter.com"
+    "website_url": "www.openappfilter.com\nhttps://space.bilibili.com/391608428"
   },
   "user_info": {
     "title": "我的信息"

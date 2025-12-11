@@ -1,8 +1,13 @@
 <template>
 	<view class="container">
-		<view class="header">
-			<view class="menu-btn" @click="showMenu" style="margin-top: 18rpx;">
-				<image class="menu-icon" src="/static/menu.png" mode="widthFix" style="width: 50rpx; height: 50rpx;" />
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="header" style="height:120rpx">			
+			<view class="menu-btn" @click="showMenu" style="margin-top: 8rpx;">
+				<image class="menu-icon" src="/static/menu.png" mode="widthFix" style="width: 50rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 38rpx; font-weight: bold; color: #6572CC;">OP Mobile</text>
 			</view>
 			<view class="header-actions">
 				<view class="add-btn" @click="addDevice">
@@ -10,124 +15,133 @@
 				</view>
 			</view>
 		</view>
-		
-		<uni-popup ref="menuPopup" type="top" :mask-click="true">
-			<view class="menu-content">
-				<view class="menu-item" @click="navigateToHelp">
-	
-					<text class="menu-item-text">{{ $t('device_list.help_feedback') }}</text>
+			<uni-popup ref="menuPopup" type="top" style="margin-top: -13rpx"  :mask-click="true">
+				<view class="menu-content">
+					<view class="header">
+						<view style="flex: 1; display: flex; justify-content: center; align-items: flex-end; right: 0;height: 140rpx; pointer-events: none;">
+							<text style="font-size: 32rpx; font-weight: bold; color: #606060;position: absolute;">{{ $t('device_list.menu') }}</text>
+						</view>
+					</view>
+					<view class="menu-item" style="height: 50rpx" @click="navigateToHelp">
+						<text class="menu-item-text">{{ $t('device_list.help_feedback') }}</text>
+						<image class="menu-item-arrow" src="/static/right.png" mode="widthFix" style="width: 32rpx; height: 32rpx;" />
+					</view>
+					<view class="menu-item" style="height: 50rpx" @click="navigateToSettings">
+					
+						<text class="menu-item-text">{{ $t('device_list.language_settings') }}</text>
 					<image class="menu-item-arrow" src="/static/right.png" mode="widthFix" style="width: 32rpx; height: 32rpx;" />
 				</view>
-				<view class="menu-item" @click="navigateToSettings">
+					<view class="menu-item" style="height: 50rpx" @click="navigateToAbout">
 				
-				<text class="menu-item-text">{{ $t('device_list.language_settings') }}</text>
-				<image class="menu-item-arrow" src="/static/right.png" mode="widthFix" style="width: 32rpx; height: 32rpx;" />
-			</view>
-				<view class="menu-item" @click="navigateToAbout">
-			
-					<text class="menu-item-text">{{ $t('device_list.about') }}</text>
-					<image class="menu-item-arrow" src="/static/right.png" mode="widthFix" style="width: 32rpx; height: 32rpx;" />
+						<text class="menu-item-text">{{ $t('device_list.about') }}</text>
+						<image class="menu-item-arrow" src="/static/right.png" mode="widthFix" style="width: 32rpx; height: 32rpx;" />
+					</view>
+				
 				</view>
+			</uni-popup>
 			
-			</view>
-		</uni-popup>
-		
 			<view class="device-list-container">
-			<view v-if="deviceList.length === 0" class="empty-state">
-				<text class="empty-text">{{ $t('device_list.empty_message') }}</text>
-			</view>
-			<view v-else :key="index" v-for="(item, index) in deviceList">
-				<view class="device-card" @click="onCardClickHandle(item)">
-					<view class="card-content">
-						<image class="device-icon" src="/static/openwrt.png" mode="widthFix" />
-						<view class="device-info">
-							<text class="device-name">{{item.name}}</text>
-							<text class="device-address">{{formatDeviceAddress(item)}}</text>
-						</view>
-						<view class="more-btn" @click.stop="showDeviceMenu(item)">
-							<image class="more-icon" src="/static/more.png" mode="widthFix" />
-						</view>
-					</view>
+				<view v-if="deviceList.length === 0" class="empty-state">
+					<text class="empty-text">{{ $t('device_list.empty_message') }}</text>
 				</view>
-			</view>
-		</view>
-	
-		<uni-popup ref="devicePopup" type="center" :mask-click="false">
-			<view class="popup-content">
-				<view class="popup-header">
-					<text class="popup-title">{{isEdit ? $t('device_list.edit_device_popup') : $t('device_list.add_device_popup')}}</text>
-				</view>
-				<view class="form-content">
-				
-					<view class="form-item">
-						<text class="label">{{ $t('device_list.host_address') }}:</text>
-						<input class="input" v-model="deviceForm.ip" :placeholder="$t('device_list.host_placeholder')" />
-					</view>
-			
-				
-			<!-- 		<view class="form-item">
-						<text class="label">{{ $t('device_list.protocol') }}:</text>
-						<view class="protocol-selector">
-							<view 
-								:class="['protocol-option', deviceForm.useHttps ? '' : 'active']" 
-								@click="deviceForm.useHttps = false"
-							>
-								<text>HTTP</text>
+				<view v-else :key="index" v-for="(item, index) in deviceList">
+					<view class="device-card" @click="onCardClickHandle(item)">
+						<view class="card-content">
+							<image class="device-icon" src="/static/openwrt.png" mode="widthFix" />
+							<view class="device-info">
+								<text class="device-name">{{item.name}}</text>
+								<text class="device-address">{{formatDeviceAddress(item)}}</text>
 							</view>
-							<view 
-								:class="['protocol-option', deviceForm.useHttps ? 'active' : '']" 
-								@click="deviceForm.useHttps = true"
-							>
-								<text>HTTPS</text>
+							<view class="more-btn" @click.stop="showDeviceMenu(item)">
+								<image class="more-icon" src="/static/more.png" mode="widthFix" />
 							</view>
 						</view>
-					</view> -->
-					<view class="form-item">
-						<text class="label">{{ $t('device_list.username_default') }}:</text>
-						<input class="input" v-model="deviceForm.username" :placeholder="$t('device_list.username_placeholder')" />
 					</view>
-					<view class="form-item">
-						<text class="label">{{ $t('device_list.password') }}:</text>
-						<input class="input" v-model="deviceForm.password" :placeholder="$t('device_list.password_placeholder')" type="password" />
-					</view>
-					<view class="form-item">
-						<text class="label">{{ $t('device_list.port_default') }}:</text>
-						<input class="input" v-model="deviceForm.port" :placeholder="$t('device_list.port_placeholder')" />
-					</view>
-					<view class="form-item">
-						<text class="label">{{ $t('device_list.remark') }}:</text>
-						<input class="input" v-model="deviceForm.name" :placeholder="$t('device_list.name_placeholder')" />
-					</view>
-				</view>
-				<view class="popup-actions">
-					<button class="popup-btn cancel-btn" @click="closePopup">{{ $t('device_list.cancel') }}</button>
-					<button class="popup-btn confirm-btn" @click="saveDevice">{{ $t('device_list.confirm') }}</button>
 				</view>
 			</view>
-		</uni-popup>
 		
-		<!-- 设备操作菜单弹窗 -->
-		<uni-popup ref="deviceMenuPopup" type="bottom" :mask-click="true">
-			<view class="device-menu-content">
-				<view class="menu-item" @click="editDeviceFromMenu">
-					<image class="menu-item-icon" src="/static/edit2.png" mode="widthFix" />
-					<text class="menu-item-text">{{ $t('device_list.edit') }}</text>
+			<uni-popup ref="devicePopup" type="center" :mask-click="false">
+				<view class="popup-content">
+					<view class="popup-header">
+						<text class="popup-title">{{isEdit ? $t('device_list.edit_device_popup') : $t('device_list.add_device_popup')}}</text>
+					</view>
+					<view class="form-content">
+					
+						<view class="form-item">
+							<text class="label">{{ $t('device_list.host_address') }}:</text>
+							<input class="input" v-model="deviceForm.ip" :placeholder="$t('device_list.host_placeholder')" />
+						</view>
+				
+					
+				<!-- 		<view class="form-item">
+							<text class="label">{{ $t('device_list.protocol') }}:</text>
+							<view class="protocol-selector">
+								<view 
+									:class="['protocol-option', deviceForm.useHttps ? '' : 'active']" 
+									@click="deviceForm.useHttps = false"
+								>
+									<text>HTTP</text>
+								</view>
+								<view 
+									:class="['protocol-option', deviceForm.useHttps ? 'active' : '']" 
+									@click="deviceForm.useHttps = true"
+								>
+									<text>HTTPS</text>
+								</view>
+							</view>
+						</view> -->
+						<view class="form-item">
+							<text class="label">{{ $t('device_list.username_default') }}:</text>
+							<input class="input" v-model="deviceForm.username" :placeholder="$t('device_list.username_placeholder')" />
+						</view>
+						<view class="form-item">
+							<text class="label">{{ $t('device_list.password') }}:</text>
+							<input class="input" v-model="deviceForm.password" :placeholder="$t('device_list.password_placeholder')" type="password" />
+						</view>
+						<view class="form-item">
+							<text class="label">{{ $t('device_list.port_default') }}:</text>
+							<input class="input" v-model="deviceForm.port" :placeholder="$t('device_list.port_placeholder')" />
+						</view>
+						<view class="form-item">
+							<text class="label">{{ $t('device_list.remark') }}:</text>
+							<input class="input" v-model="deviceForm.name" :placeholder="$t('device_list.name_placeholder')" />
+						</view>
+					</view>
+					<view class="popup-actions">
+						<button class="popup-btn cancel-btn" @click="closePopup">{{ $t('device_list.cancel') }}</button>
+						<button class="popup-btn confirm-btn" @click="saveDevice">{{ $t('device_list.confirm') }}</button>
+					</view>
 				</view>
-				<view class="menu-item delete-item" @click="deleteDeviceFromMenu">
-					<image class="menu-item-icon" src="/static/delete2.png" mode="widthFix" />
-					<text class="menu-item-text">{{ $t('device_list.delete') }}</text>
+			</uni-popup>
+			
+			<!-- 设备操作菜单弹窗 -->
+			<uni-popup ref="deviceMenuPopup" type="bottom" :mask-click="true">
+				<view class="device-menu-content">
+					<view class="menu-item" style="height: 50rpx" @click="editDeviceFromMenu">
+						<image class="menu-item-icon" style="left: 8rpx" src="/static/edit.png" mode="widthFix" />
+						<text class="menu-item-text" >{{ $t('device_list.edit') }}</text>
+					</view>
+					<view class="menu-item delete-item" style="height: 50rpx" @click="deleteDeviceFromMenu">
+						<image class="menu-item-icon" style="left: 8rpx" src="/static/delete.png" mode="widthFix" />
+						<text class="menu-item-text">{{ $t('device_list.delete') }}</text>
+					</view>
 				</view>
-			</view>
-		</uni-popup>
-	</view>
+			</uni-popup>
+		</view>
+
 </template>
 
 <script>
 	import DeviceManager from '@/utils/deviceManager.js'
+	import uniPopup from '@/uni_modules/uni-popup/components/uni-popup/uni-popup.vue'
 	
 	export default {
+		components: {
+			uniPopup
+		},
 		data() {
-			return {
+			return {					
+				statusBarHeight: 0,
 				deviceList: [],
 				deviceForm: {
 					name: 'OpenWrt',
@@ -143,6 +157,8 @@
 			}
 		},
 		onLoad() {
+			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'rpx';
+			console.log(this.statusBarHeight)
 			uni.setNavigationBarTitle({
 				title: this.$t('device_list.title')
 			})
@@ -718,8 +734,8 @@
 
 /* 设备卡片样式 */
 .device-card {
-	background: rgba(99, 77, 221, 0.15);
-	border-radius: 16rpx;
+	background: rgba(75, 77, 221, 0.1);
+	border-radius: 30rpx;
 	margin-bottom: 20rpx;
 	padding: 30rpx 20rpx;
 	box-shadow: 0 4rpx 15rpx rgba(99, 77, 221, 0.1);
@@ -777,7 +793,7 @@
 
 .popup-content {
 	background-color: white;
-	border-radius: 20rpx;
+	border-radius: 30rpx;
 	width: 600rpx;
 	padding: 30rpx;
 }
@@ -812,7 +828,7 @@
 	width: 100%;
 	height: 70rpx;
 	border: 2rpx solid #ddd;
-	border-radius: 8rpx;
+	border-radius: 15rpx;
 	padding: 0 20rpx;
 	font-size: 26rpx;
 	box-sizing: border-box;
@@ -827,7 +843,7 @@
 .popup-btn {
 	flex: 1;
 	height: 70rpx;
-	border-radius: 8rpx;
+	border-radius: 15rpx;
 	font-size: 26rpx;
 	border: none;
 }
@@ -838,7 +854,7 @@
 }
 
 .confirm-btn {
-	background-color: #007aff;
+	background-color: #6572CC;
 	color: white;
 }
 
@@ -860,16 +876,16 @@
 }
 
 .protocol-option.active {
-	background-color: #007aff;
+	background-color: #6572CC;
 	color: white;
-	border-color: #007aff;
+	border-color: #6572CC;
 }
 
 /* 菜单弹窗样式 */
 .menu-content {
 	background-color: #fff;
-	border-radius: 20rpx;
-	padding: 20rpx;
+	border-radius: 30rpx;
+	padding: 30rpx;
 }
 
 .menu-item {
@@ -886,7 +902,7 @@
 .menu-item-icon {
 	font-size: 36rpx;
 	margin-right: 15rpx;
-	color: #007aff;
+	color: #6572CC;
 }
 
 .menu-item-text {

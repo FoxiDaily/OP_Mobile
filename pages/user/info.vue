@@ -1,4 +1,5 @@
 <template>
+<view class="container" style="{paddingTop: statusBarHeight }">
 	<view class="container">
 		<view class="user-card">
 			<view class="user-icon">👤</view>
@@ -23,16 +24,19 @@
 			</view>
 		</view>
 	</view>
+	</view>
 </template>
 
 <script>
 	export default {
 		data() {
 			return {
+				statusBarHeight: 0,
 				currentLanguage: 'zh-Hans'
 			}
 		},
 		onLoad() {
+			this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 			// 动态设置页面标题
 			uni.setNavigationBarTitle({
 				title: this.$t('user_info.title')
@@ -130,13 +134,13 @@
 }
 
 .language-option.active {
-	border-color: #007aff;
-	background-color: #007aff;
+	border-color: #6572CC;
+	background-color: #6572CC;
 	color: white;
 }
 
 .language-option:not(.active):hover {
-	border-color: #007aff;
+	border-color: #6572CC;
 	background-color: #f0f8ff;
 }
 </style>

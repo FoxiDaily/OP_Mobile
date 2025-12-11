@@ -1,6 +1,15 @@
 <template>
 	<view class="container">
-
+		<view class="header" :style="{ height: statusBarHeight}">
+		</view>
+		<view class="nav-header" style="display: flex; align-items: center; position: relative;top: 20rpx;">
+			<view class="back-btn" @click="goBack" style="z-index: 2;">
+				<image class="back-icon" src="/static/back.png" mode="widthFix" style="width: 40rpx; height: 40rpx;" />
+			</view>
+			<view style="flex: 1; display: flex; justify-content: center; position: absolute; left: 0; right: 0; pointer-events: none;">
+				<text style="font-size: 32rpx; font-weight: bold; color: #fff;">{{ $t('parental_control.basic_settings') }}</text>
+			</view>
+		</view>
 
 		<view v-if="loading" class="loading-overlay">
 			<view class="loading-content">
@@ -19,7 +28,7 @@
 					<switch 
 						:checked="settings.enable" 
 						@change="onEnableChange"
-						color="#007AFF"
+						color="#6572CC"
 					/>
 				</view>
 			</view>
@@ -33,7 +42,7 @@
 					<switch 
 						:checked="settings.recordEnable" 
 						@change="onRecordEnableChange"
-						color="#007AFF"
+						color="#6572CC"
 					/>
 				</view>
 			</view>
@@ -77,6 +86,7 @@ import DeviceManager from '@/utils/deviceManager.js'
 export default {
 	data() {
 		return {
+			statusBarHeight: 0,
 			loading: false,
 			saving: false,
 			deviceInfo: {},
@@ -97,7 +107,7 @@ export default {
 		uni.setNavigationBarTitle({
 			title: this.$t('parental_control.basic_settings')
 		})
-		
+		this.statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 		this.deviceInfo = DeviceManager.getCurrentDevice()
 		this.session = this.deviceInfo.sysauth
 		const protocol = this.deviceInfo.useHttps ? 'https' : 'http'
@@ -240,7 +250,7 @@ export default {
 	width: 60rpx;
 	height: 60rpx;
 	border: 4rpx solid #f3f3f3;
-	border-top: 4rpx solid #007AFF;
+	border-top: 4rpx solid #6572CC;
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 	margin-bottom: 20rpx;
@@ -262,7 +272,7 @@ export default {
 
 .setting-card {
 	background: rgba(255, 255, 255, 0.95);
-	border-radius: 16rpx;
+	border-radius: 30rpx;
 	padding: 30rpx;
 	margin-bottom: 20rpx;
 	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
@@ -301,7 +311,7 @@ export default {
 	align-items: center;
 	padding: 10rpx 20rpx;
 	background: #f8f8f8;
-	border-radius: 8rpx;
+	border-radius: 15rpx;
 	min-width: 200rpx;
 }
 
@@ -322,8 +332,8 @@ export default {
 .save-button {
 	width: 100%;
 	height: 88rpx;
-	background: #007AFF;
-	border-radius: 16rpx;
+	background: #6572CC;
+	border-radius: 30rpx;
 	border: none;
 	display: flex;
 	justify-content: center;

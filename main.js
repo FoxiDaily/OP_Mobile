@@ -26,7 +26,7 @@ function getDefaultLocale() {
 
   
   let result
-  if (locale == 'zh-Hans') {
+  if (locale == 'zh-Hans') { 
     result = 'zh-Hans'
   } else {
     result = 'en'
@@ -100,3 +100,4 @@ export function createApp() {
     app
   }
 }// #endif
+
