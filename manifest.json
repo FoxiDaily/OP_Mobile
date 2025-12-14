@@ -2,8 +2,8 @@
     "name" : "OP Mobile",
     "appid" : "__UNI__6137149",
     "description" : "OpenWrt Mobile Dashboard",
-    "versionName" : "1.0.3",
-    "versionCode" : 103,
+    "versionName" : "1.0.4-Release",
+    "versionCode" : 104,
     "transformPx" : false,
     "app-plus" : {
         "usingComponents" : true,
@@ -66,7 +66,12 @@
                 }
             },
             "splashscreen" : {
-                "androidStyle" : "common"
+                "androidStyle" : "default",
+                "android" : {
+                    "hdpi" : "static/Splash/hdpi.9.png",
+                    "xhdpi" : "static/Splash/xhdpi.9.png",
+                    "xxhdpi" : "static/Splash/xxhdpi.9.png"
+                }
             }
         }
     },

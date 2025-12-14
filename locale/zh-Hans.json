@@ -292,16 +292,20 @@
   },
   "about": {
     "title": "关于",
-    "version_info": "版本信息",
+    "version_info": "软件版本",
     "version_number": "版本号",
     "developer_info": "开发者信息",
     "author": "作者",
-    "author_name": "destan19(TT) (原开发者)\nFXDaily (OP Mobile开发者)",
+    "author_name": "· FXDaily\n· destan19(TT) (OP Assistant开发者)",
     "introduction": "介绍",
 	"base": "Based On OPAssistant",
-    "introduction_desc": "destan19(TT):\n全栈开发程序员，十多年网络通信开发经验，家长控制插件OpenAppFilter作者。\n\nFXDaily:\n一个普通大学生，哔哩哔哩UP主。",
+    "introduction_desc": "· FXDaily - 一个普通大学生，哔哩哔哩UP主。\n· destan19(TT) - 全栈开发程序员，十多年网络通信开发经验，家长控制插件OpenAppFilter作者。",
     "website": "网站",
-    "website_url": "www.openappfilter.com\nhttps://space.bilibili.com/391608428"
+    "website_url": "www.openappfilter.com\nhttps://space.bilibili.com/391608428",
+	"sourcecode":"开源代码",
+	"sourcecode_url":"https://github.com/FoxiDaily/OP_Mobile",
+	"open_website":"查看开源代码",
+	"open_website_confirm":"是否使用外部浏览器打开\nhttps://github.com/FoxiDaily/OP_Mobile？"
   },
   "user_info": {
     "title": "我的信息"

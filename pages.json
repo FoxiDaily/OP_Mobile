@@ -46,7 +46,10 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "%apps.title%",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"app-plus": {
+					"bounce": "none"
+				}
 		    }
 		},
 
@@ -144,7 +147,10 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "%help.title%",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"app-plus": {
+					"bounce": "none"
+				}
 		    }
 		},
 		{
@@ -160,7 +166,10 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "%language.title%",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"app-plus": {
+					"bounce": "none"
+				}
 		    }
 		}
 

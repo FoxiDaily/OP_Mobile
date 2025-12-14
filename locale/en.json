@@ -270,12 +270,16 @@
     "version_number": "Version",
     "developer_info": "Developer Info",
     "author": "Author",
-    "author_name": "destan19(TT) (Original Developer)\nFXDaily (OP Mobile Developer)",
+    "author_name": "· FXDaily\n· destan19(TT) (OPAssistant Developer)",
     "introduction": "Introduction",
 	"base": "Based On OPAssistant",
-    "introduction_desc": "destan 19(TT):\nFull-stack developer with over 10 years of network communication development experience, author of OpenAppFilter parental control plugin.\n\nFXDaily:\nA university student and a Bilibili uploader.Thanks for TT's efforts!",
+    "introduction_desc": "· FXDaily - A university student and a Bilibili uploader.Thanks for TT's efforts!\n· destan 19(TT) - Full-stack developer with over 10 years of network communication development experience, author of OpenAppFilter parental control plugin.",
     "website": "Website",
-    "website_url": "www.openappfilter.com\nhttps://space.bilibili.com/391608428"
+    "website_url": "www.openappfilter.com\nhttps://space.bilibili.com/391608428",
+	"sourcecode":"Source Code",
+	"sourcecode_url":"https://github.com/FoxiDaily/OP_Mobile",
+	"open_website":"Source Code",
+	"open_website_confirm":"Open\nhttps://github.com/FoxiDaily/OP_Mobile\nin browser?"
   },
   "user_info": {
     "title": "My Info"

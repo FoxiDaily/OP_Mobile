@@ -24,10 +24,13 @@
 				<view class="about-section">
 					<text class="section-title">{{ $t('about.version_info') }}</text>
 					<view class="section-item">
-						<text class="item-title">{{ $t('about.version_number') }}</text>
 						<text class="item-desc">{{ version }}</text>
 					</view>
 				</view>
+			</view>
+		</view>
+		<view class="about-card">
+			<view class="about-content">	
 				<view class="about-section">
 					<text class="section-title">{{ $t('about.developer_info') }}</text>
 					<view class="section-item">
@@ -45,6 +48,16 @@
 				</view>
 			</view>
 		</view>
+		<view class="about-card" @click="openWebsite">
+			<view class="about-content">	
+				<view class="about-section">
+					<text class="section-title">{{ $t('about.sourcecode') }}</text>
+					<view class="section-item">
+						<text class="item-desc">{{ $t('about.sourcecode_url') }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
 	</view>
 
 </template>
@@ -55,7 +68,7 @@ export default {
 	data() {
 		return {
 			statusBarHeight: 0,
-			version: '1.0.3'
+			version: '1.0.4 Release'
 		}
 	},
 	onLoad() {
@@ -69,7 +82,21 @@ export default {
 			uni.navigateBack({
 				delta: 1
 			});
-		}
+		},
+		
+		openWebsite() {
+			uni.showModal({
+				title: this.$t('about.open_website'),
+				content: this.$t('about.open_website_confirm'),
+				success: (res) => {
+					if (res.confirm) {
+						// 在浏览器中打开网站
+						plus.runtime.openURL('https://github.com/FoxiDaily/OP_Mobile')
+					}
+				}
+			})
+		},
+		
 	}
 }
 </script>
